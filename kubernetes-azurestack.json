@@ -1,0 +1,76 @@
+{
+  "apiVersion": "vlabs",
+  "location": "dc2",
+  "properties": {
+    "orchestratorProfile": {
+      "orchestratorRelease": "1.29",
+      "orchestratorVersion": "1.29.15",
+      "kubernetesConfig": {
+        "cloudProviderBackoff": true,
+        "cloudProviderBackoffRetries": 1,
+        "cloudProviderBackoffDuration": 30,
+        "cloudProviderRateLimit": true,
+        "cloudProviderRateLimitQPS": 100,
+        "cloudProviderRateLimitBucket": 150,
+        "cloudProviderRateLimitQPSWrite": 25,
+        "cloudProviderRateLimitBucketWrite": 30,
+        "useCloudControllerManager": true,
+        "useInstanceMetadata": false,
+        "networkPlugin": "kubenet",
+        "kubeletConfig": {
+          "--node-status-update-frequency": "1m"
+        },
+        "controllerManagerConfig": {
+          "--node-monitor-grace-period": "5m",
+          "--pod-eviction-timeout": "5m",
+          "--route-reconciliation-period": "1m"
+        },
+        "kubernetesImageBase": "mcr.microsoft.com/",
+        "kubernetesImageBaseType": "mcr",
+        "containerRuntime": "containerd"
+      }
+    },
+    "customCloudProfile": {
+      "portalURL": "https://portal.dc2.xpressazure.com/",
+      "identitySystem": "adfs"
+    },
+    "featureFlags": {
+      "enableTelemetry": true
+    },
+    "masterProfile": {
+      "dnsPrefix": "k8smaster",
+      "distro": "ubuntu-20.04",
+      "count": 1,
+      "vmSize": "Standard_DS2_v2",
+      "vnetSubnetId": "",
+      "FirstConsecutiveStaticIP": "10.0.2.4"
+    },
+    "agentPoolProfiles": [
+      {
+        "name": "k8sagent",
+        "count": 1,
+        "vmSize": "Standard_D2_v2",
+        "distro": "ubuntu-20.04",
+        "availabilityProfile": "AvailabilitySet",
+        "AcceleratedNetworkingEnabled": false,
+        "vnetSubnetId": ""
+      }
+    ],
+    "linuxProfile": {
+      "adminUsername": "devops",
+      "ssh": {
+        "publicKeys": [
+          {
+            "keyData": ""
+          }
+        ]
+      },
+      "enableUnattendedUpgrades": false,
+      "runUnattendedUpgradesOnBootstrap": false
+    },
+    "servicePrincipalProfile": {
+      "clientId": "",
+      "secret": ""
+    }
+  }
+}
